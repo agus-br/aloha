@@ -1,0 +1,256 @@
+.container {
+    background-color: #E1E6E9;
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    padding: 15vh 5vw 15vh 5vw;
+    justify-content: space-evenly;
+    gap: 4vw;
+}
+
+.container .izq,
+.container .der {
+    background-color: white;
+    padding: 10px 20px 20px 20px;
+    width: 30%;
+    height: max-content;
+    display: flex;
+    flex-direction: column;
+    border-radius: 6px;
+    justify-content: space-evenly;
+    gap: 5vh;
+}
+
+.campos {
+    display: flex;
+    flex-direction: column;
+}
+
+.campos .cajaBusqueda {
+    display: flex;
+    padding: 0 5px;
+    border-radius: 6px;
+    border: 1px solid #289976;
+    justify-content: space-between;
+}
+
+.campos input {
+    outline: none;
+    border: none;
+    width: 90%;
+    height: 30px;
+}
+
+.campos .cajaBusqueda span {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 10%;
+    height: 30px;
+    color: #289976;
+}
+
+.container .izq .filtros {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    gap: 35px;
+}
+
+#filtro-precio {
+    display: flex;
+    gap: 5px;
+    flex-direction: column;
+    font-size: 14px;
+}
+
+#filtro-precio .cabecera {
+    width: 100%;
+}
+
+#filtro-precio .precio-input {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+#filtro-precio .precio-input .campoPrecio {
+    display: flex;
+    width: 40%;
+    height: 100%;
+    align-items: center;
+}
+
+#filtro-precio .precio-input .campoPrecio input {
+    text-align: center;
+    width: 100%;
+    height: 40px;
+    font-size: 16px;
+    outline: none;
+    margin-left: 8px;
+    border-radius: 5px;
+    border: 1px solid #289976;
+}
+
+.filtro-ranking {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.rank {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.rank .star {
+    color: gold;
+    border: none;
+    background-color: white;
+}
+
+.botones button {
+    display: inline-flex;
+    width: 100%;
+    height: 40px;
+    background-color: #289976;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    justify-content: center;
+    gap: 6px;
+}
+
+.botones button span {
+    display: inline-flex;
+    padding: 0 12px;
+    color: white;
+    height: 100%;
+    align-items: center;
+}
+
+.botones button:hover {
+    background-color: #50C7A2;
+}
+
+.botones button:active {
+    background-color: white;
+    border: 1px solid #289976;
+}
+
+.botones button:active>span {
+    color: #289976;
+}
+
+.container .der {
+    background-color: #E1E6E9;
+    display: flex;
+    width: 70%;
+    gap: 10px;
+}
+
+.container .der .item-alquiler{
+    display: flex;
+    width: 100%;
+    height: 30vh;
+    min-height: 200px;
+    background-color: white;
+    border-radius: 6px;
+}
+
+.item-alquiler .imagen{
+    margin: 10px 5px 10px 10px;
+    background-color: gray;
+    width: 30%;
+    height: 90%;
+}
+
+.item-alquiler .imagen img {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.item-alquiler .datos-generales{
+    display: flex;
+    margin: 10px 5px 10px 5px;
+    width: 50%;
+    height: 90%;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: space-evenly;
+}
+
+.item-alquiler .datos-generales h2{
+    color: #323232;
+}
+
+.item-alquiler .datos-generales .mostrar-rank {
+    display: inline-flex;
+    width: 40%;
+    justify-content: space-between;
+}
+.item-alquiler .datos-generales .mostrar-rank span{
+    font-size: 22px;
+    color: gold;
+}
+
+.item-alquiler .datos-generales .ubicacion {
+    display: inline-flex;
+    align-content: center;
+    gap: 5px;
+}
+
+.item-alquiler .datos-generales .ubicacion span{
+    color: #323232;
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+}
+
+.item-alquiler .datos-generales .ubicacion .material-symbols-outlined{
+    font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 24
+}
+
+.servicios{
+    display: inline-flex;
+    width: 40%;
+    justify-content: space-between;
+}
+
+.servicios span {
+    font-size: 22px;
+    color: #289976;
+}
+
+.item-alquiler .mas-detalles{
+    display: flex;
+    margin: 10px 10px 10px 5px;
+    width: 20%;
+    height: 90%;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 30px;
+}
+
+.item-alquiler .mas-detalles .precio-logo {
+    display: inline-flex;
+    justify-content: flex-end;
+    width: 100%;
+}
+
+.precio-logo span {
+    color: gray;
+    font-size: 20px;
+}

@@ -1,0 +1,73 @@
+@import url('https://fonts.googleapis.com/css2?family=Sono:wght@200..800&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #E1E6E9;
+    width: 100%;
+    min-height: 100vh;
+}
+
+.navbar {
+    display: flex;
+    background-color: #289976;
+    height: 12vh;
+    width: 100%;
+    padding: 0 2vw;
+    justify-content: space-between;
+    font-family: "Sono", Arial, Helvetica, sans-serif;
+    font-size: 1em;
+    position: fixed;
+}
+
+.navbar .icon {
+    display: block;
+    width: 30%;
+    height: 100%;
+}
+
+.navbar div img{
+    height: 100%;
+}
+
+.navbar .login-signup {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    color: whitesmoke;
+    gap: 10px;
+}
+
+.navbar .login-signup a{
+    text-decoration: none;
+    color: whitesmoke;
+}
+
+.navbar .login-signup span {
+    font-size: 2em;
+}
+
+.material-symbols-outlined {
+    font-variation-settings:
+        'FILL' 1,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 24
+}
+
+.titulos {
+    color: #289976;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.subtitulos {
+    color: #289976;
+    font-weight: bold;
+    font-size: 14px;
+}
+
