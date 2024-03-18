@@ -45,12 +45,19 @@ body {
     justify-self: flex-end;
     align-items: center;
     color: white;
-    gap: 10px;
+    gap: 20px;
 }
 
 .navbar .login-signup a{
+    display: flex;
+    align-items: center;
+    height: 100%;
     text-decoration: none;
     color: white;
+}
+
+.navbar .login-signup a:hover{
+    background-color: #50C7A2;
 }
 
 .navbar .login-signup span {
@@ -87,10 +94,16 @@ body {
 
 #menu-logo {
     display: flex;
+    width: 60px;
     height: 100%;
+    justify-content: center;
     align-items: center;
     color: white;
     cursor: pointer;
+}
+
+#menu-logo:hover {
+    background-color: #50C7A2;
 }
 
 #menu-logo span{
