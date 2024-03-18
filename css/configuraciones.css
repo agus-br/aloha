@@ -1,0 +1,138 @@
+@import url('https://fonts.googleapis.com/css2?family=Sono:wght@200..800&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Sono", Arial, Helvetica, sans-serif;
+}
+
+body {
+    background-color: #E1E6E9;
+    width: 100%;
+    min-height: 100vh;
+}
+
+.navbar {
+    display: flex;
+    background-color: #289976;
+    height: 60px;
+    width: 100%;
+    padding: 0 40px;
+    justify-content: flex-start;
+    font-size: 1em;
+    position: fixed;
+    border-bottom: 2px solid white;
+}
+
+.navbar .logo {
+    display: flex;
+    align-items: center;
+    width: 60px;
+    height: 100%;
+}
+
+.navbar .logo img {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.navbar .titulo {
+    display: flex;
+    align-items: center;
+    color: white;
+    padding: 0 15px;
+    background-color: #289976;
+}
+
+.navbar .titulo h1{
+    font-size: 24px;
+    font-weight: 400;
+}
+
+.material-symbols-outlined {
+    font-variation-settings:
+        'FILL' 1,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 24
+}
+
+.container {
+    background-color: blue;
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    justify-content: space-evenly;
+}
+
+.container .izquierda,
+.container .derecha {
+    background-color: #289976;
+    width: 30%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.container .derecha {
+    background-color: white;
+    width: 70%;
+    height: 100%;
+}
+
+.container .izquierda .detalles-usuario {
+    display: flex;
+    align-items: center;
+    margin-top: 60px;
+    padding: 30px 20px;
+    width: 100%;
+    gap: 15px;
+}
+
+.container .izquierda .detalles-usuario span {
+    color: white;
+    font-size: 20px;
+}
+
+.container .izquierda .categoria {
+    display: inline-flex;
+    background-color: #289976;
+    width: 100%;
+    height: 40px;
+    border: none;
+    outline: none;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 0 20px;
+    gap: 15px;
+}
+
+.container .izquierda .categoria:hover {
+    background-color: #50C7A2;
+}
+
+.container .izquierda .categoria span{
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.material-symbols-outlined {
+    font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 24
+}
+
+#logo-usuario{
+    font-size: 48px;
+}
+
+#logo-perfil, #logo-settings, #logo-home {
+    font-size: 24px;
+}
