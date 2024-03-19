@@ -192,12 +192,13 @@
     color: #606060;
 }
 
-.item-alquiler .datos-generales .mostrar-rank {
+.mostrar-rank {
     display: inline-flex;
     width: 40%;
     justify-content: space-between;
 }
-.item-alquiler .datos-generales .mostrar-rank span{
+
+.mostrar-rank span{
     font-size: 22px;
     color: gold;
 }
