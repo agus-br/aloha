@@ -116,9 +116,9 @@ body {
     position: absolute;
     min-width: 200px;
     min-height: 400px;
-    height: max-content;
-    translate: -135px;
+    height: max-content;    
     padding: 20px 0;
+    right: 0;
 }
 
 .menu-amburguesa .menu li{
@@ -141,6 +141,7 @@ body {
     background-color: #50C7A2;
 }
 
-#check:checked ~ .menu{
+#check:checked + .menu{
     display: block;
 }
+
