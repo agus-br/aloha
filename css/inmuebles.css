@@ -55,7 +55,7 @@
 .itemPhoto .photo{
         width: 50px;
         height: 50px;
-        background-color: #fff;
+        background-color: #000;
         border-radius: 50%; /* Esto hace que el div tenga forma de círculo */
         display: flex;
         justify-content: center;
@@ -103,17 +103,20 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-bottom: 30px;
 }
 
 .grid-ranking{
-    background-color: #fff;
+    background-color: #289976;
     width: 100vh;
     height: 300px;
     display: grid;
-    grid-template-rows: 40% 33.3% 33.3%;
+    grid-template-rows: 40% 20% 20%;
     gap: 7px;
     padding: 40px;
     border-radius: 30px;
+    color: white;
+    box-shadow: 10px 10px 5px white;
 }
 
 .puntuacion p{
@@ -121,4 +124,48 @@
     display: flex;
     justify-content: center;
     
+}
+
+.puntuaInfo p{
+    font-size: 20px;
+    text-align: center;
+}
+
+.puntuaInfo2 p{
+    font-size: 15px;
+    text-align: center;
+}
+
+.grid{
+    margin-top: 30px;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    gap: 2em;
+    margin-bottom: 30px;
+}
+
+.grid div{
+    
+    padding: 8px;
+}
+
+.grid-comentarios {
+    display: grid;
+    grid-template-columns: 20% 50%;
+    gap: 10px;
+}
+
+.itemPhoto .photo2{
+    width: 70px;
+        height: 70px;
+        background-color: #000;
+        border-radius: 50%; /* Esto hace que el div tenga forma de círculo */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-left: 10px;
+}
+
+.tituloComentario{
+    font-weight: bold;
 }
