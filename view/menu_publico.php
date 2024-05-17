@@ -1,13 +1,13 @@
 <nav class="navbar">
         <div class="icon">
-            <a href="#">
+            <a href="home.php">
                 <img src="img/head-aloha.png" alt="Aloja">
             </a>
         </div>
         <div id="header-derecha">
             <div class="login-signup">
-                <a href="login.html">Iniciar sesión</a>
-                <a href="signup.html">Registrarse</a>
+                <a href="login.php">Iniciar sesión</a>
+                <a href="signup.php">Registrarse</a>
                 <!-- <a href=""><span class="material-symbols-outlined">person</span></a> -->
             </div>
 

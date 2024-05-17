@@ -1,6 +1,6 @@
 <nav class="navbar">
         <div class="icon">
-            <a href="#">
+            <a href="home.php">
                 <img src="img/head-aloha.png" alt="Aloja">
             </a>
         </div>
@@ -28,8 +28,8 @@
                 <input type="checkbox" id="check">
                 <div class="menu">
                     <ul>
-                        <li><a href="conf_perfil.html">Configuración</a></li>
-                        <li><a href="conf_perfil.html">Cerrar sesión</a></li>
+                        <li><a href="conf_perfil.php">Configuración</a></li>
+                        <li><a href="conf_perfil.php">Cerrar sesión</a></li>
                     </ul>
                 </div>
             </div>

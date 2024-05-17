@@ -27,8 +27,8 @@ class DAOUsuario
 			$obj = null; 
             
 			$sentenciaSQL = $this->conexion->prepare("SELECT id,nombre,apellidos,rol,correo 
-            FROM usuarios WHERE email=? AND 
-            CAST(password as varchar(28))=CAST(sha224(?) as varchar(28))");
+            FROM usuarios WHERE correo=? AND password=?");
+            //CAST(password as varchar(28))=CAST(sha224(?) as varchar(28))");
 			//Se ejecuta la sentencia sql con los parametros dentro del arreglo 
             $sentenciaSQL->execute([$correo,$password]);
             

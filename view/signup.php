@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/formularios.css">
+    <link rel="stylesheet" href="../css/formularios.css">
+    <link rel="stylesheet" href="../css/validaciones.css">
     <title>Registrarse</title>
 </head>
 
@@ -12,7 +13,7 @@
     <form action="">
         <div class="form-navbar">
             <a href="login.html" id="login"><button type="button" class="def-btn">Iniciar sesión</button></a>
-            <a href="signup.html" id="signup"><button type="button" class="btn-active">Registrarse</button></a>
+            <a id="signup"><button type="button" class="btn-active">Registrarse</button></a>
         </div>
         <div class="controles">
             <div class="campo-texto">

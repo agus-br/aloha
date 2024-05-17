@@ -41,7 +41,7 @@
     </nav> -->
 
     <?php 
-    require("components/menu_publico.php");
+    require("menu_publico.php");
         //session_start();
         //$_SESSION["algo"]=1;
         //unset($_SESSION["correo"]);
