@@ -14,7 +14,7 @@
 
 <body>
 
-    <nav class="navbar">
+    <!-- <nav class="navbar">
         <div class="icon">
             <a href="#">
                 <img src="img/head-aloha.png" alt="Aloja">
@@ -24,7 +24,6 @@
             <div class="login-signup">
                 <a href="login.html">Iniciar sesión</a>
                 <a href="signup.html">Registrarse</a>
-                <!-- <a href=""><span class="material-symbols-outlined">person</span></a> -->
             </div>
 
             <div class="menu-amburguesa">
@@ -39,7 +38,19 @@
                 </div>
             </div>
         </div>
-    </nav>
+    </nav> -->
+
+    <?php 
+    require("components/menu_publico.php");
+        //session_start();
+        //$_SESSION["algo"]=1;
+        //unset($_SESSION["correo"]);
+        //if(!(isset($_SESSION["correo"]) && strlen($_SESSION["correo"])>0))
+        //{
+        //    header("Location: login.php");
+        //}
+        //var_dump($_SESSION);
+    ?>
 
     <div class="container">
         <div class="izq">
@@ -139,7 +150,7 @@
                         <span class="titulos">1,600</span>
                     </div>
                     <div class="botones">
-                        <a href="detalle_inmuebles.html" target="_blank"><button>
+                        <a href="detalle_inmuebles.php" target="_blank"><button>
                                 <span id="btn-text">Ver más</span>
                             </button></a>
                     </div>
