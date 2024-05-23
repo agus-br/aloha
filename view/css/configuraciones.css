@@ -8,13 +8,13 @@
 }
 
 body {
-    background-color: #E1E6E9;
+    background-color: #FFF;
     width: 100%;
     min-height: 100vh;
     height: 100%;
 }
 
-.navbar {
+/* .navbar {
     display: flex;
     background-color: #289976;
     height: 60px;
@@ -52,7 +52,7 @@ body {
 .navbar .titulo h1{
     font-size: 24px;
     font-weight: 400;
-}
+} */
 
 .titulos {
     color: #289976;
@@ -116,8 +116,9 @@ body {
     display: flex;
     flex-direction: column;
     background-color: #289976;
-    width: 30%;
-    margin-top: 60px;
+    width: 25%;
+    min-height: 100vh;
+    padding-top: 60px;
 }
 
 
@@ -189,11 +190,11 @@ body {
 .container .derecha {
     display: flex;
     flex-direction: column;
-    width: 70%;
+    width: 75%;
     min-height: 100vh;
     height: 100%;
     background-color: white;
-    padding: 20px;
+    padding: 100px 20px 0px 20px;
     gap: 20px;
 }
 
@@ -280,7 +281,7 @@ body {
     background-color: #50C7A2;
     color: white;
 }       
-e
+
 .btn-container .action-btn-default:focus {
     background-color: #50C7A2;
     color: white;
@@ -307,7 +308,7 @@ e
     background-color: #f5354b;
 }
 
-e .btn-container .action-btn-default-del:focus {
+.btn-container .action-btn-default-del:focus {
     background-color: #f5354b;
 }
 

@@ -1,12 +1,11 @@
 <?php
 //importa la clase conexión y el modelo para usarlos
-require_once 'conexion.php'; 
+require_once 'conexion.php';
+require_once '../model/usuario.php';
 
 class DAOUsuario
-{
-    
+{    
 	private $conexion; 
-
     private function conectar(){
         try{
 			$this->conexion = Conexion::conectar(); 
@@ -26,7 +25,7 @@ class DAOUsuario
             //Almacenará el registro obtenido de la BD
 			$obj = null; 
             
-			$sentenciaSQL = $this->conexion->prepare("SELECT id,nombre,apellidos,rol,correo 
+			$sentenciaSQL = $this->conexion->prepare("SELECT id, nombre, apellidoPaterno, apellidoMaterno, rol, correo, telefono
             FROM usuarios WHERE correo=? AND password=?");
             //CAST(password as varchar(28))=CAST(sha224(?) as varchar(28))");
 			//Se ejecuta la sentencia sql con los parametros dentro del arreglo 
@@ -35,12 +34,14 @@ class DAOUsuario
             /*Obtiene los datos*/
 			$fila=$sentenciaSQL->fetch(PDO::FETCH_OBJ);
 			if($fila){
-                $obj = new Usuario();
+                $obj = new usuario();
                 $obj->id = $fila->id;
                 $obj->nombre = $fila->nombre;
-                $obj->apellidos = $fila->apellidos;
+                $obj->apellidoPaterno = $fila->apellidoPaterno;
+                $obj->apellidoMaterno = $fila->apellidoMaterno;
                 $obj->rol = $fila->rol;
                 $obj->correo = $fila->correo;
+                $obj->telefono = $fila->telefono;
             }
             return $obj;
 		}

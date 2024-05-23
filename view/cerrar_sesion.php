@@ -1,5 +1,7 @@
 <?php
     session_start();
     unset($_SESSION["correo"]);
-    header("Location: index.php");
+    unset($_SESSION["rol"]);
+    unset($_SESSION["nombre"]);
+    header("Location: login.php");
 ?>

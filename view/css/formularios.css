@@ -42,13 +42,14 @@
     font-size: 1rem;
 }
 
-body {
+.container {
+    background-color: #FFF;
     display: flex;
     width: 100%;
     min-height: 100vh;
-    justify-content: center;
-    align-items: center;
-    padding: 50px 0;
+    padding: 20vh 5vw 10vh 5vw;
+    justify-content: space-evenly;
+    gap: 4vw;
 }
 
 form {

@@ -13,43 +13,8 @@
 </head>
 
 <body>
-
-    <!-- <nav class="navbar">
-        <div class="icon">
-            <a href="#">
-                <img src="img/head-aloha.png" alt="Aloja">
-            </a>
-        </div>
-        <div id="header-derecha">
-            <div class="login-signup">
-                <a href="login.html">Iniciar sesión</a>
-                <a href="signup.html">Registrarse</a>
-            </div>
-
-            <div class="menu-amburguesa">
-                <label id="menu-logo" for="check">
-                    <span class="material-symbols-outlined">menu</span>
-                </label>
-                <input type="checkbox" id="check">
-                <div class="menu">
-                    <ul>
-                        <li><a href="conf_perfil.html">Configuración</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </nav> -->
-
-    <?php 
-    require("menu_publico.php");
-        //session_start();
-        //$_SESSION["algo"]=1;
-        //unset($_SESSION["correo"]);
-        //if(!(isset($_SESSION["correo"]) && strlen($_SESSION["correo"])>0))
-        //{
-        //    header("Location: login.php");
-        //}
-        //var_dump($_SESSION);
+    <?php
+        require("menu_privado.php");
     ?>
 
     <div class="container">
@@ -60,7 +25,7 @@
                 </div>
 
                 <div id="filtro-ubicacion" class="campos">
-                    <span class="subtitulos">Ubicación</span>
+                    <span class="subtitulos">Municipio</span>
                     <div class="cajaBusqueda">
                         <input type="text" name="txtubicacion" class="campo-texto" placeholder="Ubicación de inmueble">
                         <span class="material-symbols-outlined">search</span>
@@ -82,11 +47,11 @@
                     <div class="precio-input">
                         <div class="campoPrecio">
                             <span>Min</span>
-                            <input type="number" class="input-min" value="1000" step="100">
+                            <input type="number" class="input-min" value="1000" step="100" min="500" max="9900">
                         </div>
                         <div class="campoPrecio">
                             <span>Max</span>
-                            <input type="number" class="input-max" value="5000" step="100">
+                            <input type="number" class="input-max" value="5000" step="100" max="10000" min="600">
                         </div>
                     </div>
                     <div class="slider">
@@ -96,7 +61,7 @@
                     </div>
                 </div>
 
-                <div class="filtro-ranking">
+                <!-- <div class="filtro-ranking">
                     <span class="subtitulos">Ranking</span>
                     <div class="rank">
                         <button class="material-symbols-outlined star" value="1">star</b>
@@ -105,14 +70,14 @@
                                 <button class="material-symbols-outlined star" value="4">star</button>
                                 <button class="material-symbols-outlined star" value="5">star</but>
                     </div>
-                </div>
+                </div> -->
             </form>
 
             <div class="botones">
                 <a href="ubicaciones.html"><button type="button">
-                    <span id="btn-text">Ver más ubicaciones</span>
-                    <span id="btn-icon" class="material-symbols-outlined">search
-                </button></a>
+                        <span id="btn-text">Ver más ubicaciones</span>
+                        <span id="btn-icon" class="material-symbols-outlined">search
+                    </button></a>
             </div>
         </div>
 

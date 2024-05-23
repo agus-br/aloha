@@ -5,49 +5,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/configuraciones.css">
+    <link rel="stylesheet" href="css/basic.css">
     <link rel="stylesheet" href="css/galeria.css">
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="css/validaciones.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <title>Configuración de inmueble</title>
 </head>
 
 <body>
-    <nav class="navbar">
-        <div class="logo">
-            <a href="index.html">
-                <img src="img/aloha.png" alt="Logo de Aloha">
-            </a>
-        </div>
-        <div class="titulo">
-            <h1>Configuración</h1>
-        </div>
-    </nav>
+    <?php
+    require("menu_privado.php");
+    ?>
 
     <div class="container">
-        <form class="izquierda">
-            <div class="detalles-usuario">
-                <span id="logo-usuario" class="material-symbols-outlined">account_circle</span>
-                <span class="nombre-usuario">Nombre de usuario</span>
-            </div>
-            <button type="button" class="categoria">
-                <a href="conf_perfil.html">
-                    <span id="logo-perfil" class="material-symbols-outlined">person_edit</span>
-                    <span>Perfil</span>
-                </a>
-            </button>
-            <button type="button" class="categoria">
-                <a href="conf_cuenta.html">
-                    <span id="logo-settings" class="material-symbols-outlined">settings</span>
-                    <span>Cuenta</span>
-                </a>
-            </button>
-            <button type="button" class="categoria">
-                <a href="lista_inmuebles.html">
-                    <span id="logo-home" class="material-symbols-outlined">home</span>
-                    <span>Inmuebles</span>
-                </a>
-            </button>
-        </form>
+        <?php
+        require("leftNavBar.php");
+        ?>
 
         <form class="derecha">
             <div class="titulos">

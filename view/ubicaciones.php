@@ -6,38 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/basic.css">
     <link rel="stylesheet" href="css/ubicaciones.css">
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <title>Mapa de ubicaciones de inmuebles</title>
 </head>
 
 <body>
 
-    <nav class="navbar">
-        <div class="icon">
-            <a href="index.html">
-                <img src="img/head-aloha.png" alt="Aloja">
-            </a>
-        </div>
-        <div id="header-derecha">
-            <div class="login-signup">
-                <a href="login.html">Iniciar sesión</a>
-                <a href="signup.html">Registrarse</a>
-            </div>
-
-            <div class="menu-amburguesa">
-                <label id="menu-logo" for="check">
-                    <span class="material-symbols-outlined">menu</span>
-                </label>
-                <input type="checkbox" id="check">
-                <div class="menu">
-                    <ul>
-                        <li><a href="conf_perfil.html">Configuración</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </nav>
+    <?php
+    require("menu_publico.php");
+    ?>
 
     <div class="container">
         <div class="izq">
@@ -73,10 +50,7 @@
         </div>
 
         <div class="der">
-            <iframe
-                src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d29968.07444296879!2d-101.1721243098702!3d20.133659392765768!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2smx!4v1710824593940!5m2!1sen!2smx"
-                width="800" height="600" style="border:0;" allowfullscreen="" loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d29968.07444296879!2d-101.1721243098702!3d20.133659392765768!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2smx!4v1710824593940!5m2!1sen!2smx" width="800" height="600" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
     </div>
 

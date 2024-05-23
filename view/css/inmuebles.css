@@ -33,14 +33,13 @@
 
 .grid-descripcion{
     margin-top: 30px;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
     display: grid;
     grid-template-columns: 8% 50%;
     gap: 7px;
 }
 
 .grid-descripcion div{
-    
     padding: 5px;
 }
 
@@ -69,7 +68,7 @@
 }
 
 .descripcion{
-    margin-top: 70px;
+    margin-top: 30px;
     margin-bottom: 70px;
     text-align: justify;
 
