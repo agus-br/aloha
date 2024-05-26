@@ -1,7 +1,7 @@
 <div class="izquierda">
     <div class="detalles-usuario">
         <span id="logo-usuario" class="material-symbols-outlined">account_circle</span>
-        <span class="nombre-usuario">Nombre de usuario</span>
+        <span class="nombre-usuario"><?php echo $_SESSION["nombre"];?></span>
     </div>
     <button type="button" class="categoria">
         <a href="conf_perfil.php">

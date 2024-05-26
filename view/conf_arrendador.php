@@ -24,17 +24,17 @@
         <form class="derecha">
             <div class="titulos">
                 <?php
-                    if($_SESSION["rol"] == "Usuario"){
-                        echo "<span>Carga tus datos para convertirte en arrendador.</span>";
-                    }else{
-                        echo "<span>Configuración de perfil de arrendador.</span>";
-                    }
+                if ($_SESSION["rol"] == "Usuario") {
+                    echo "<span>Carga tus datos para convertirte en arrendador.</span>";
+                } else {
+                    echo "<span>Configuración de perfil de arrendador.</span>";
+                }
                 ?>
             </div>
             <div class="campos">
                 <div class="med">
                     <div class="campo-texto">
-                        <label for="txtTelefono" class="subtitulos">Teléfono de contacto</label>
+                        <label for="txtTelefono" class="subtitulos" required>Teléfono de contacto</label>
                         <input type="text" id="txtTelefono">
                     </div>
                     <div class="campo-texto">
@@ -44,14 +44,13 @@
                 </div>
                 <div class="med">
                     <button type="button" class="campo-file">
-                        Documento de verificación
-                        <label for="datos-verificación" class="subtitulos"></label>
+                        <label for="datos-verificación" class="subtitulos" required>Documento de verificación</label>
                         <input type="file" id="datos-verificación">
                     </button>
                 </div>
             </div>
             <div class="btn-container">
-                <button class="action-btn-default">Guardar</button>
+                <button type="submit" class="action-btn-default">Guardar</button>
             </div>
         </form>
     </div>
