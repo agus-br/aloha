@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="css/basic.css">
     <link rel="stylesheet" href="css/validaciones.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <title>Configuración de perfil público</title>
+    <title>Configuración de perfil de arrendador</title>
 </head>
 
 <body>
@@ -23,34 +23,31 @@
 
         <form class="derecha">
             <div class="titulos">
-                <span>Configuración de perfil público</span>
+                <?php
+                    if($_SESSION["rol"] == "Usuario"){
+                        echo "<span>Carga tus datos para convertirte en arrendador.</span>";
+                    }else{
+                        echo "<span>Configuración de perfil de arrendador.</span>";
+                    }
+                ?>
             </div>
             <div class="campos">
                 <div class="med">
                     <div class="campo-texto">
-                        <span class="subtitulos">Nombre</span>
-                        <input type="text">
+                        <label for="txtTelefono" class="subtitulos">Teléfono de contacto</label>
+                        <input type="text" id="txtTelefono">
                     </div>
                     <div class="campo-texto">
-                        <span class="subtitulos">Apellido paterno</span>
-                        <input type="text">
-                    </div>
-                    <div class="campo-texto">
-                        <span class="subtitulos">Apellido materno</span>
-                        <input type="text">
+                        <label for="txtVerificacion" class="subtitulos">Estatus de verificación</label>
+                        <input type="text" id="txtVerificacion" disabled>
                     </div>
                 </div>
                 <div class="med">
-                    <div class="campo-imagen">
-                        <span class="subtitulos">Foto de perfil</span>
-                        <div class="img-circular">
-                            <img src="img/photo.png" alt="">
-                        </div>
-                        <button type="button" class="btn-editar-imagen">
-                            <span id="icono" class="material-symbols-outlined">edit</span>
-                            <span>Editar</span>
-                        </button>
-                    </div>
+                    <button type="button" class="campo-file">
+                        Documento de verificación
+                        <label for="datos-verificación" class="subtitulos"></label>
+                        <input type="file" id="datos-verificación">
+                    </button>
                 </div>
             </div>
             <div class="btn-container">

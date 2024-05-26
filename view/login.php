@@ -41,7 +41,7 @@
                 $errorMessage = "Correo y/o contraseña incorrecta";
             }
         } else {
-            $validado = "validado";
+            //$validado = "validado";
             $showBackError = "show";
             $errorMessage = "Correo o contraseña incorrecta";
         }
