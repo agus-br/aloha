@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/configuraciones.css">
+    <link rel="stylesheet" href="css/conf_inmuebles.css">
     <link rel="stylesheet" href="css/basic.css">
     <link rel="stylesheet" href="css/galeria.css">
     <link rel="stylesheet" href="css/validaciones.css">
@@ -18,11 +18,7 @@
     ?>
 
     <div class="container">
-        <?php
-        require("leftNavBar.php");
-        ?>
-
-        <form class="derecha">
+        <form class="derecha" method="POST" action="dataInmueble.php" enctype="multipart/form-data">
             <div class="titulos">
                 <span>Configuración de inmueble</span>
             </div>

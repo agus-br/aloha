@@ -20,6 +20,11 @@
                 echo $_SESSION["nombre"];
                 ?>
             </a>
+            <?php
+                if($_SESSION["rol"] == "Arrendador"){
+                    echo "<a href='lista_inmuebles.php'>Mis inmuebles</a>";
+                }
+            ?>
         </div>
 
         <div class="menu-amburguesa">
