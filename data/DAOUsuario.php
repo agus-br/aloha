@@ -51,18 +51,18 @@ class DAOUsuario
         }
 	}
 
-	public function getUser($correo){
+	public function getUser($id){
 		try {
 			$this->conectar();
 
 			//Almacenará el registro obtenido de la BD
 			$obj = null;
 
-			$sentenciaSQL = $this->conexion->prepare("SELECT id, nombre, apellidoPaterno, apellidoMaterno, rol, correo, telefono
-            FROM usuarios WHERE correo=?");
+			$sentenciaSQL = $this->conexion->prepare("SELECT id, nombre, apellidopaterno, apellidomaterno, rol, correo, telefono
+            FROM usuarios WHERE id=?");
 			//CAST(password as varchar(28))=CAST(sha224(?) as varchar(28))");
 			//Se ejecuta la sentencia sql con los parametros dentro del arreglo 
-			$sentenciaSQL->execute([$correo]);
+			$sentenciaSQL->execute([$id]);
 
 			/*Obtiene los datos*/
 			$fila = $sentenciaSQL->fetch(PDO::FETCH_OBJ);
@@ -70,14 +70,55 @@ class DAOUsuario
 				$obj = new usuario();
 				$obj->id = $fila->id;
 				$obj->nombre = $fila->nombre;
-				$obj->apellidoPaterno = $fila->apellidoPaterno;
-				$obj->apellidoMaterno = $fila->apellidoMaterno;
+				$obj->apellidoPaterno = $fila->apellidopaterno;
+				$obj->apellidoMaterno = $fila->apellidomaterno;
 				$obj->rol = $fila->rol;
 				$obj->correo = $fila->correo;
 				$obj->telefono = $fila->telefono;
 			}
 			return $obj;
 		} catch (Exception $e) {
+			var_dump($e);
+			return null;
+		} finally {
+			Conexion::desconectar();
+		}
+	}
+
+	public function obtenerArrendadores(){
+		try {
+			$this->conectar();
+
+			$lista = array();
+			/*Se arma la sentencia sql para seleccionar todos los registros de la base de datos*/
+			$sentenciaSQL = $this->conexion->prepare("SELECT id, nombre, apellidopaterno, apellidomaterno, rol, correo, telefono, estatus
+					FROM usuarios WHERE rol='Arrendador'");
+
+			//Se ejecuta la sentencia sql, retorna un cursor con todos los elementos
+			$sentenciaSQL->execute();
+
+			//$resultado = $consulta->fetchAll(PDO::FETCH_ASSOC);
+			$resultado = $sentenciaSQL->fetchAll(PDO::FETCH_OBJ);
+			/*Podemos obtener un cursor (resultado con todos los renglones como 
+				un arreglo de arreglos asociativos o un arreglo de objetos*/
+			/*Se recorre el cursor para obtener los datos*/
+
+			foreach ($resultado as $fila) {
+				$obj = new usuario();
+				$obj->id = $fila->id;
+				$obj->nombre = $fila->nombre;
+				$obj->apellidoPaterno = $fila->apellidopaterno;
+				$obj->apellidoMaterno = $fila->apellidomaterno;
+				$obj->rol = $fila->rol;
+				$obj->correo = $fila->correo;
+				$obj->telefono = $fila->telefono;
+				$obj->estatus = $fila->estatus;
+				//Agrega el objeto al arreglo, no necesitamos indicar un índice, usa el próximo válido
+				$lista[] = $obj;
+			}
+
+			return $lista;
+		} catch (PDOException $e) {
 			var_dump($e);
 			return null;
 		} finally {
@@ -95,7 +136,7 @@ class DAOUsuario
 		} catch (PDOException $e) {
 			//Si quieres acceder expecíficamente al numero de error
 			//se puede consultar la propiedad errorInfo
-			return false;
+			return 0;
 		} finally {
 			Conexion::desconectar();
 		}
@@ -139,6 +180,7 @@ class DAOUsuario
 		try {
 			$sql = "UPDATE usuarios
                     SET
+					telefono = ?,
                     rol = ?
                     WHERE correo = ?;";
 
@@ -147,6 +189,7 @@ class DAOUsuario
 			$sentenciaSQL = $this->conexion->prepare($sql);
 			$sentenciaSQL->execute(
 				array(
+					$obj->telefono,
 					$obj->rol,
 					$obj->correo
 				)

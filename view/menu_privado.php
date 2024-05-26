@@ -21,12 +21,18 @@
                 ?>
             </a>
             <?php
-                if($_SESSION["rol"] == "Arrendador"){
-                    echo "<a href='lista_inmuebles.php'>Mis inmuebles</a>";
-                }
+            if ($_SESSION["rol"] == "Arrendador") {
+                echo "<a href='lista_inmuebles.php'>Mis inmuebles</a>";
+            }else if($_SESSION["rol"] == "Administrador"){
+                echo "<a href='lista_arrendadores.php'>Arrendadores</a>";
+            }
             ?>
         </div>
-
+        <?php
+            if ($_SESSION["rol"] == "Arrendador") {
+                echo "<a href='lista_inmuebles.php'>Mis inmuebles</a>";
+            }
+        ?>
         <div class="menu-amburguesa">
             <label id="menu-logo" for="check">
                 <span class="material-symbols-outlined">menu</span>

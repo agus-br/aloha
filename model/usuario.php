@@ -8,5 +8,6 @@
         public $correo = "";
         public $password = "";
         public $telefono = "";
+        public $estatus = "";
     }
 ?>
