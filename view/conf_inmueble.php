@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="css/galeria.css">
     <link rel="stylesheet" href="css/validaciones.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
     <title>Configuración de inmueble</title>
 </head>
 
@@ -64,7 +65,15 @@
                 <div class="med">
                     <div class="campo-texto">
                         <span class="subtitulos">Nombre público</span>
-                        <input type="text">
+                        <input type="text" id="txtNombre">
+                    </div>
+                    <div id="group">
+                        <fieldset id="estatus" class="input-group">
+                            <legend class="subtitulos">Estatus del inmueble</legend>
+                            <label><input type="radio" name="estus">Disponible</label>
+                            <label><input type="radio" name="estus">Ocupado</label>
+                            <label><input type="radio" name="estus">Fuera de servicio</label>
+                        </fieldset>
                     </div>
                     <div class="campo-texto">
                         <span class="subtitulos">Descripción</span>
@@ -83,11 +92,12 @@
                         </div>
                     </div>
                     <div id="group">
-                        <fieldset id="estatus" class="input-group">
-                            <legend class="subtitulos">Estatus del inmueble</legend>
-                            <label><input type="radio" name="estus">Disponible</label>
-                            <label><input type="radio" name="estus">Ocupado</label>
-                            <label><input type="radio" name="estus">Fuera de servicio</label>
+                        <fieldset id="servicios" class="input-group">
+                            <legend class="subtitulos">Servicios del inmueble</legend>
+                            <label><input type="checkbox" name="servicios">Internet</label>
+                            <label><input type="checkbox" name="servicios">Agua</label>
+                            <label><input type="checkbox" name="servicios">Lus</label>
+                            <label><input type="checkbox" name="servicios">Garage</label>
                         </fieldset>
                     </div>
                 </div>
@@ -99,30 +109,6 @@
             <div class="campos">
                 <div class="med">
                     <div class="campo-texto">
-                        <span class="subtitulos">País</span>
-                        <input type="text">
-                    </div>
-                    <div class="campo-texto">
-                        <span class="subtitulos">Municipio</span>
-                        <input type="text">
-                    </div>
-                    <div class="campo-texto">
-                        <span class="subtitulos">Calle</span>
-                        <input type="text">
-                    </div>
-                    <div class="med-row">
-                        <div class="campo-texto">
-                            <span class="subtitulos">No. Ext. Numérico</span>
-                            <input type="text">
-                        </div>
-                        <div class="campo-texto">
-                            <span class="subtitulos">No. Ext. Alfaumérico</span>
-                            <input type="text">
-                        </div>
-                    </div>
-                </div>
-                <div class="med">
-                    <div class="campo-texto">
                         <span class="subtitulos">Estado</span>
                         <input type="text">
                     </div>
@@ -131,10 +117,34 @@
                         <input type="text">
                     </div>
                     <div class="campo-texto">
-                        <span class="subtitulos">Codigo postal</span>
+                        <span class="subtitulos">Latitud</span>
+                        <input type="text" id="txtLatitud">
+                    </div>
+                    <!-- <div class="med-row">
+                        <div class="campo-texto">
+                            <span class="subtitulos">No. Ext. Numérico</span>
+                            <input type="text">
+                        </div>
+                        <div class="campo-texto">
+                            <span class="subtitulos">No. Ext. Alfaumérico</span>
+                            <input type="text">
+                        </div>
+                    </div> -->
+                </div>
+                <div class="med">
+                    <div class="campo-texto">
+                        <span class="subtitulos">Municipio</span>
                         <input type="text">
                     </div>
-                    <div class="med-row">
+                    <div class="campo-texto">
+                        <span class="subtitulos">Calle</span>
+                        <input type="text">
+                    </div>
+                    <div class="campo-texto">
+                        <span class="subtitulos">Longitud</span>
+                        <input type="text" id="txtLongitud">
+                    </div>
+                    <!-- <div class="med-row">
                         <div class="campo-texto">
                             <span class="subtitulos">No. Int. Numérico</span>
                             <input type="text">
@@ -143,29 +153,16 @@
                             <span class="subtitulos">No. Int. Alfanumérico</span>
                             <input type="text">
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
 
             <div class="encabezados">
-                <span>Datos sobre servicios</span>
+                <span>Vista previa de la ubicación</span>
             </div>
             <div class="campos">
-                <div class="med">
-                    <div id="group">
-                        <fieldset id="servicios" class="input-group">
-                            <legend class="subtitulos">Servicios del inmueble</legend>
-                            <label><input type="checkbox" name="servicios">Internet</label>
-                            <label><input type="checkbox" name="servicios">Agua</label>
-                            <label><input type="checkbox" name="servicios">Lus eléctrica</label>
-                            <label><input type="checkbox" name="servicios">Gas</label>
-                            <label><input type="checkbox" name="servicios">Garage</label>
-                            <label><input type="checkbox" name="servicios">Baño privado</label>
-                            <label><input type="checkbox" name="servicios">Muebles</label>
-                        </fieldset>
-                    </div>
-                </div>
-                <div class="med">
+                <div class="map" id="previewMap">
+
                 </div>
             </div>
 
@@ -175,6 +172,8 @@
             </div>
         </form>
     </div>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="js/map.js"></script>
 </body>
 
 </html>

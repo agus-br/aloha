@@ -28,7 +28,6 @@
     <main>
         <div class="container">
             <?php
-                require_once("menu_privado.php");
                 require_once("../data/DAOUsuario.php");
                 $usuario = new Usuario();
                 if (isset($_POST["id"]) && is_numeric($_POST["id"])) {

@@ -21,8 +21,8 @@
                 <span>Configuración de inmueble</span>
             </div>
 
-            <div class="campos">
-                <div class="med">
+            <div class="lista-inmuebles">
+                <div class="inmueble-item">
                     <a href="conf_inmueble.php">
                         <button type="button" class="short-list-inmuebles">
                             <div class="item-alquiler">
@@ -37,42 +37,6 @@
                                     </div>
                                 </div>
 
-                            </div>
-                        </button>
-                    </a>
-                </div>
-                <div class="med">
-                    <a href="conf_inmueble.php">
-                        <button type="button" class="short-list-inmuebles">
-                            <div class="item-alquiler">
-                                <div class="imagen">
-                                    <img src="img/photo.png" alt="Imagen de inmueble">
-                                </div>
-                                <div class="datos-generales">
-                                    <h2>Nombre de inmueble</h2>
-                                    <div class="ubicacion">
-                                        <span class="material-symbols-outlined">location_on</span>
-                                        <span class="texto-inf">Uriangato, Guanajuato</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </button>
-                    </a>
-                </div>
-                <div class="med">
-                    <a href="conf_inmueble.php">
-                        <button type="button" class="short-list-inmuebles">
-                            <div class="item-alquiler">
-                                <div class="imagen">
-                                    <img src="img/photo.png" alt="Imagen de inmueble">
-                                </div>
-                                <div class="datos-generales">
-                                    <h2>Nombre de inmueble</h2>
-                                    <div class="ubicacion">
-                                        <span class="material-symbols-outlined">location_on</span>
-                                        <span class="texto-inf">Uriangato, Guanajuato</span>
-                                    </div>
-                                </div>
                             </div>
                         </button>
                     </a>
