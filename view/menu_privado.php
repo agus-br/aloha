@@ -28,11 +28,6 @@
             }
             ?>
         </div>
-        <?php
-            if ($_SESSION["rol"] == "Arrendador") {
-                echo "<a href='lista_inmuebles.php'>Mis inmuebles</a>";
-            }
-        ?>
         <div class="menu-amburguesa">
             <label id="menu-logo" for="check">
                 <span class="material-symbols-outlined">menu</span>

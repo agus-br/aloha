@@ -23,7 +23,7 @@
 
         <form class="derecha">
             <div class="titulos">
-                <span>Configuración de perfil público</span>
+                <span>Configuración de perfil</span>
             </div>
             <div class="campos">
                 <div class="med">

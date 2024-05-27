@@ -7,53 +7,84 @@
     <link rel="stylesheet" href="css/basic.css">
     <link rel="stylesheet" href="css/ubicaciones.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
     <title>Mapa de ubicaciones de inmuebles</title>
 </head>
 
 <body>
 
     <?php
-    require("menu_publico.php");
+    require("menu_privado.php");
     ?>
 
     <div class="container">
         <div class="izq">
-            <button type="button" class="short-list-inmuebles">
-                <div class="item-alquiler">
-                    <div class="imagen">
-                        <img src="img/photo.png" alt="Imagen de inmueble">
-                    </div>
-                    <div class="datos-generales">
-                        <h2>Nombre de inmueble</h2>
-                        <div class="mostrar-rank">
-                            <span class="material-symbols-outlined star">star</span>
-                            <span class="material-symbols-outlined star">star</span>
-                            <span class="material-symbols-outlined star">star</span>
-                            <span class="material-symbols-outlined star">star</span>
-                            <span class="material-symbols-outlined star">star</span>
-                        </div>
-                        <div class="ubicacion">
-                            <span class="material-symbols-outlined">location_on</span>
-                            <span class="texto-inf">Uriangato, Guanajuato</span>
-                        </div>
-                    </div>
+            <?php
+            require_once("../data/DAOInmueble.php");
 
-                </div>
-            </button>
+            // Obtener todos los inmuebles
+            $daoInmueble = new DAOInmueble();
+            $inmuebles = $daoInmueble->obtenerInmuebles();
 
-            <div class="botones">
-                <button type="button">
-                    <span id="btn-text">Ver más ubicaciones</span>
-                    <span id="btn-icon" class="material-symbols-outlined">arrow_right_alt</span>
+            // Iterar sobre cada inmueble para generar el HTML
+            foreach ($inmuebles as $inmueble) {
+            ?>
+                <button type="button" class="short-list-inmuebles" value="<?php echo $inmueble->nombre . "," . $inmueble->latitud . ',' . $inmueble->longitud ?>">
+                    <div class="item-alquiler">
+                        <div class="imagen">
+                            <img src="img/photo.png" alt="Imagen de inmueble">
+                        </div>
+                        <div class="datos-generales">
+                            <h2><?php echo $inmueble->nombre; ?></h2>
+                            <div class="servicios">
+                                <?php
+                                if ($inmueble->internet) {
+                                    echo '<span class="material-symbols-outlined">Wifi</span>';
+                                }
+                                if ($inmueble->agua) {
+                                    echo '<span class="material-symbols-outlined">water_drop</span>';
+                                }
+                                if ($inmueble->luz) {
+                                    echo '<span class="material-symbols-outlined">Bolt</span>';
+                                }
+                                if ($inmueble->garage) {
+                                    echo '<span class="material-symbols-outlined">directions_car</span>';
+                                }
+                                ?>
+                            </div>
+                            <div class="ubicacion">
+                                <span class="material-symbols-outlined">location_on</span>
+                                <span class="texto-inf"><?php echo $inmueble->estado . " " . $inmueble->municipio; ?></span>
+                            </div>
+                        </div>
+
+                        <div class="mas-detalles">
+                            <div class="precio-logo">
+                                <span class="titulos">$ <?php echo $inmueble->precioAlquiler; ?></span>
+                            </div>
+                            <div class="botones">
+                                <a class="btnDetalles" href="detalle_inmuebles.php?id=<?php echo $inmueble->id; ?>">Ver más</a>
+                            </div>
+
+                        </div>
+
+                    </div>
                 </button>
-            </div>
+            <?php
+            }
+            ?>
+
         </div>
 
         <div class="der">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d29968.07444296879!2d-101.1721243098702!3d20.133659392765768!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2smx!4v1710824593940!5m2!1sen!2smx" width="800" height="600" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <div class="map" id="mapaAlquileres">
+
+            </div>
         </div>
     </div>
 
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="js/mapaAlquileres.js"></script>
 </body>
 
 </html>
