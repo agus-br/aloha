@@ -29,6 +29,8 @@
 .subtitulo{
     margin-top: 10px;
     font-size: 15px;
+    text-decoration: none;
+    color: #616161;
 }
 
 .grid-descripcion{

@@ -14,6 +14,9 @@
 <body>
     <?php
     require("menu_privado.php");
+    if ($_SESSION["rol"] != "Administrador") {
+        header("Location: home.php");
+    } 
     if (isset($_SESSION["msgError"])) {
         $msgInfo = $_SESSION["msgError"];
         echo "<div class='alert'>$msgInfo</div>";

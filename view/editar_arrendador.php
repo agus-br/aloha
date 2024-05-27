@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="css/basic.css">
     <link rel="stylesheet" href="css/formularios.css">
     <link rel="stylesheet" href="css/validaciones.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <title>Editar arrendador</title>
 </head>
 
@@ -14,6 +15,10 @@
     <?php
     require_once("menu_privado.php");
     require_once("../data/DAOUsuario.php");
+    if ($_SESSION["rol"] != "Administrador") {
+        header("Location: home.php");
+    } 
+
     $usuario = new Usuario();
     if (isset($_GET["id"]) && is_numeric($_GET["id"])) {
         //var_dump($_GET["id"]);

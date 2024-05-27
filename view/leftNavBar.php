@@ -25,7 +25,7 @@
             </button>";
         }else if($_SESSION["rol"] == "Arrendador"){
             echo "<button type='button' class='categoria'>
-                <a href='lista_inmuebles.php'>
+                <a href='conf_arrendador.php'>
                     <span id='logo-home' class='material-symbols-outlined'>home</span>
                     <span>Arrendador</span>
                 </a>

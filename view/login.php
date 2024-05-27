@@ -32,6 +32,7 @@
             if ($usuario) {
                 //header("Location: home.php?dato=$correo");
                 session_start();
+                $_SESSION["id"] = $usuario->id;
                 $_SESSION["nombre"] = $usuario->nombre;
                 $_SESSION["correo"] = $correo;
                 $_SESSION["rol"] = $usuario->rol;

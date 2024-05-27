@@ -13,34 +13,50 @@
 <body>
     <?php
     require("menu_privado.php");
+    if ($_SESSION["rol"] != "Arrendador") {
+        header("Location: home.php");
+    }
     ?>
 
     <div class="container">
-        <form class="derecha">
+        <div class="derecha">
             <div class="titulos">
-                <span>Configuración de inmueble</span>
+                <span>Lista de inmuebles</span>
             </div>
 
             <div class="lista-inmuebles">
-                <div class="inmueble-item">
-                    <a href="conf_inmueble.php">
-                        <button type="button" class="short-list-inmuebles">
-                            <div class="item-alquiler">
-                                <div class="imagen">
-                                    <img src="img/photo.png" alt="Imagen de inmueble">
-                                </div>
-                                <div class="datos-generales">
-                                    <h2>Nombre de inmueble</h2>
-                                    <div class="ubicacion">
-                                        <span class="material-symbols-outlined">location_on</span>
-                                        <span class="texto-inf">Uriangato, Guanajuato</span>
-                                    </div>
-                                </div>
+                <?php
+                require_once("../data/DAOInmueble.php");
 
-                            </div>
-                        </button>
-                    </a>
-                </div>
+                // Obtener todos los inmuebles
+                $daoInmueble = new DAOInmueble();
+                $inmuebles = $daoInmueble->obtenerInmueblesArrendador($_SESSION["id"]);
+
+                // Iterar sobre cada inmueble para generar el HTML
+                foreach ($inmuebles as $inmueble) {
+                ?>
+                    <div class="inmueble-item">
+                        <a href="conf_inmueble.php?id=<?= $inmueble->id; ?>">
+                            <button type="button" class="short-list-inmuebles">
+                                <div class="item-alquiler">
+                                    <div class="imagen">
+                                        <img src="img/photo.png" alt="Imagen de inmueble">
+                                    </div>
+                                    <div class="datos-generales">
+                                        <h2><?= $inmueble->nombre; ?></h2>
+                                        <div class="ubicacion">
+                                            <span class="material-symbols-outlined">location_on</span>
+                                            <span class="texto-inf"><?= $inmueble->estado . ", " . $inmueble->municipio ?></span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </button>
+                        </a>
+                    </div>
+                <?php
+                }
+                ?>
             </div>
 
             <a href="conf_inmueble.php">
@@ -48,7 +64,7 @@
                     <span class="material-symbols-outlined">add</span>
                 </button>
             </a>
-        </form>
+        </div>
     </div>
 </body>
 

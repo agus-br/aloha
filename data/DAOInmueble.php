@@ -32,13 +32,56 @@ class DAOInmueble
                 $obj->id = $fila->id;
                 $obj->arrendador = $fila->arrendador;
                 $obj->nombre = $fila->nombre;
+                $obj->telefono = $fila->telefono;
+                $obj->precioAlquiler = $fila->precioalquiler;
+                $obj->descripcion = $fila->descripcion;
                 $obj->estado = $fila->estado;
                 $obj->municipio = $fila->municipio;
                 $obj->colonia = $fila->colonia;
                 $obj->direccion = $fila->direccion;
                 $obj->latitud = $fila->latitud;
                 $obj->longitud = $fila->longitud;
+                $obj->internet = $fila->internet;
+                $obj->agua = $fila->agua;
+                $obj->luz = $fila->luz;
+                $obj->garage = $fila->garage;
+                $obj->estatus = $fila->estatus;
+            }
+            return $obj;
+        } catch (Exception $e) {
+            var_dump($e);
+            return null;
+        } finally {
+            Conexion::desconectar();
+        }
+    }
+
+    public function getInmuebleArrendador($id_arrendador, $id){
+        try {
+            $this->conectar();
+
+            // Almacenará el registro obtenido de la BD
+            $obj = null;
+
+            $sentenciaSQL = $this->conexion->prepare("SELECT * FROM inmuebles WHERE id=? and arrendador = ?");
+            $sentenciaSQL->execute([$id, $id_arrendador]);
+
+            /* Obtiene los datos */
+            $fila = $sentenciaSQL->fetch(PDO::FETCH_OBJ);
+            if ($fila) {
+                $obj = new Inmueble(); // Usamos el modelo Inmueble
+                $obj->id = $fila->id;
+                $obj->arrendador = $fila->arrendador;
+                $obj->nombre = $fila->nombre;
+                $obj->telefono = $fila->telefono;
                 $obj->precioAlquiler = $fila->precioalquiler;
+                $obj->descripcion = $fila->descripcion;
+                $obj->estado = $fila->estado;
+                $obj->municipio = $fila->municipio;
+                $obj->colonia = $fila->colonia;
+                $obj->direccion = $fila->direccion;
+                $obj->latitud = $fila->latitud;
+                $obj->longitud = $fila->longitud;
                 $obj->internet = $fila->internet;
                 $obj->agua = $fila->agua;
                 $obj->luz = $fila->luz;
@@ -76,13 +119,63 @@ class DAOInmueble
                 $obj->id = $fila->id;
                 $obj->arrendador = $fila->arrendador;
                 $obj->nombre = $fila->nombre;
+                $obj->telefono = $fila->telefono;
+                $obj->precioAlquiler = $fila->precioalquiler;
+                $obj->descripcion = $fila->descripcion;
                 $obj->estado = $fila->estado;
                 $obj->municipio = $fila->municipio;
                 $obj->colonia = $fila->colonia;
                 $obj->direccion = $fila->direccion;
                 $obj->latitud = $fila->latitud;
                 $obj->longitud = $fila->longitud;
+                $obj->internet = $fila->internet;
+                $obj->agua = $fila->agua;
+                $obj->luz = $fila->luz;
+                $obj->garage = $fila->garage;
+                $obj->estatus = $fila->estatus;
+                // Agrega el objeto al arreglo, no necesitamos indicar un índice, usa el próximo válido
+                $lista[] = $obj;
+            }
+
+            return $lista;
+        } catch (PDOException $e) {
+            var_dump($e);
+            return null;
+        } finally {
+            Conexion::desconectar();
+        }
+    }
+
+    public function obtenerInmueblesArrendador($id){
+        try {
+            $this->conectar();
+
+            $lista = array();
+            /* Se arma la sentencia SQL para seleccionar todos los registros de la base de datos */
+            $sentenciaSQL = $this->conexion->prepare("SELECT * FROM inmuebles where estatus = 'Disponible' and arrendador = ?");
+            // Se ejecuta la sentencia SQL, retorna un cursor con todos los elementos
+            $sentenciaSQL->execute([$id]);
+
+            //$resultado = $consulta->fetchAll(PDO::FETCH_ASSOC);
+            $resultado = $sentenciaSQL->fetchAll(PDO::FETCH_OBJ);
+            /* Podemos obtener un cursor (resultado con todos los renglones como 
+            un arreglo de arreglos asociativos o un arreglo de objetos */
+            /* Se recorre el cursor para obtener los datos */
+
+            foreach ($resultado as $fila) {
+                $obj = new Inmueble(); // Usamos el modelo Inmueble
+                $obj->id = $fila->id;
+                $obj->arrendador = $fila->arrendador;
+                $obj->nombre = $fila->nombre;
+                $obj->telefono = $fila->telefono;
                 $obj->precioAlquiler = $fila->precioalquiler;
+                $obj->descripcion = $fila->descripcion;
+                $obj->estado = $fila->estado;
+                $obj->municipio = $fila->municipio;
+                $obj->colonia = $fila->colonia;
+                $obj->direccion = $fila->direccion;
+                $obj->latitud = $fila->latitud;
+                $obj->longitud = $fila->longitud;
                 $obj->internet = $fila->internet;
                 $obj->agua = $fila->agua;
                 $obj->luz = $fila->luz;
@@ -123,13 +216,15 @@ class DAOInmueble
             $sql = "UPDATE inmuebles
                 SET
                 nombre = ?,
+                telefono = ?,
+                precioalquiler = ?,
+                descripcion = ?,
                 estado = ?,
                 municipio = ?,
                 colonia = ?,
                 direccion = ?,
                 latitud = ?,
                 longitud = ?,
-                precioalquiler = ?,
                 internet = ?,
                 agua = ?,
                 luz = ?,
@@ -143,13 +238,15 @@ class DAOInmueble
             $sentenciaSQL->execute(
                 array(
                     $obj->nombre,
+                    $obj->telefono,
+                    $obj->precioAlquiler,
+                    $obj->descripcion,
                     $obj->estado,
                     $obj->municipio,
                     $obj->colonia,
                     $obj->direccion,
                     $obj->latitud,
                     $obj->longitud,
-                    $obj->precioAlquiler,
                     $obj->internet,
                     $obj->agua,
                     $obj->luz,
@@ -174,13 +271,15 @@ class DAOInmueble
             $sql = "INSERT INTO inmuebles
                 (arrendador,
                 nombre,
+                telefono,
+                precioalquiler,
+                descripcion,
                 estado,
                 municipio,
                 colonia,
                 direccion,
                 latitud,
                 longitud,
-                precioalquiler,
                 internet,
                 agua,
                 luz,
@@ -189,13 +288,15 @@ class DAOInmueble
                 VALUES
                 (:arrendador,
                 :nombre,
+                :telefono,
+                :precioalquiler,
+                :descripcion,
                 :estado,
                 :municipio,
                 :colonia,
                 :direccion,
                 :latitud,
                 :longitud,
-                :precioalquiler,
                 :internet,
                 :agua,
                 :luz,
@@ -207,13 +308,15 @@ class DAOInmueble
                 ->execute(array(
                     ':arrendador' => $obj->arrendador,
                     ':nombre' => $obj->nombre,
+                    ':telefono' => $obj->telefono,
+                    ':precioalquiler' => $obj->precioAlquiler,
+                    ':descripcion' => $obj->descripcion,
                     ':estado' => $obj->estado,
                     ':municipio' => $obj->municipio,
                     ':colonia' => $obj->colonia,
                     ':direccion' => $obj->direccion,
                     ':latitud' => $obj->latitud,
                     ':longitud' => $obj->longitud,
-                    ':precioalquiler' => $obj->precioAlquiler,
                     ':internet' => $obj->internet,
                     ':agua' => $obj->agua,
                     ':luz' => $obj->luz,

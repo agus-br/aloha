@@ -328,3 +328,7 @@ body {
     min-height: max-content;
     gap: 15px;
 }
+
+textarea {
+    resize: none;
+}
