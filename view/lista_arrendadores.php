@@ -16,7 +16,7 @@
     require("menu_privado.php");
     if ($_SESSION["rol"] != "Administrador") {
         header("Location: home.php");
-    } 
+    }
     if (isset($_SESSION["msgError"])) {
         $msgInfo = $_SESSION["msgError"];
         echo "<div class='alert'>$msgInfo</div>";
@@ -31,29 +31,29 @@
     <main>
         <div class="container">
             <?php
-                require_once("../data/DAOUsuario.php");
-                $usuario = new Usuario();
-                if (isset($_POST["id"]) && is_numeric($_POST["id"])) {
-                    //var_dump($_GET["id"]);
-                    //Cuando se recibe el id entonces hay que obtener los datos del usuario
-                    $usuario = (new DAOUsuario())->getUser((int) $_POST["id"]);
-                    if ($usuario->rol == "Arrendador") {
-                        $eliminado = (new DAOUsuario())->eliminar((int) $_POST["id"]);
-                        if ($eliminado > 0) {
-                            $_SESSION["msg"] = "alert-success--Usuario eliminado exitósamente";
-                        } else {
-                            $_SESSION["msg"] = "alert-danger--No se ha podido eliminar al usuario seleccionado debido a que tiene procesos relacionados";
-                        }
+            require_once("../data/DAOUsuario.php");
+            $usuario = new Usuario();
+            if (isset($_POST["id"]) && is_numeric($_POST["id"])) {
+                //var_dump($_GET["id"]);
+                //Cuando se recibe el id entonces hay que obtener los datos del usuario
+                $usuario = (new DAOUsuario())->getUser((int) $_POST["id"]);
+                if ($usuario->rol == "Arrendador") {
+                    $eliminado = (new DAOUsuario())->eliminar((int) $_POST["id"]);
+                    if ($eliminado > 0) {
+                        $_SESSION["msg"] = "alert-success--Usuario eliminado exitósamente";
                     } else {
-                        $_SESSION["msg"] = "alert-danger--Error inesperado";
+                        $_SESSION["msg"] = "alert-danger--No se ha podido eliminar al usuario seleccionado debido a que tiene inmuebles publicados.";
                     }
+                } else {
+                    $_SESSION["msg"] = "alert-danger--Error inesperado";
                 }
+            }
 
-                if (isset($_SESSION["msg"])) {
-                    $msgInfo = explode("--", $_SESSION["msg"]);
-                    echo "<div class='alert $msgInfo[0]'>$msgInfo[1]</div>";
-                    unset($_SESSION["msg"]);
-                }
+            if (isset($_SESSION["msg"])) {
+                $msgInfo = explode("--", $_SESSION["msg"]);
+                echo "<div class='alert $msgInfo[0]'>$msgInfo[1]</div>";
+                unset($_SESSION["msg"]);
+            }
             ?>
             <table id="tblUsuarios" class="table table-striped">
                 <thead>
@@ -72,17 +72,17 @@
                     require_once("../data/DAOUsuario.php");
                     $lista = (new DAOUsuario())->obtenerArrendadores();
                     foreach ($lista as $usuario) {
+                        $celda = $usuario->estatus == "No verificado" ? "<td><button type='button' class='btn btn-success' data-bs-toggle='modal' data-bs-target='#mdlVerificar' value='$usuario->id' nombre='$usuario->apellidoPaterno $usuario->apellidoMaterno $usuario->nombre'>Verificar</button>
+                        </td>" : "<td><button type='button' class='btn btn-warning' data-bs-toggle='modal' data-bs-target='#mdlVerificar' value='$usuario->id' nombre='$usuario->apellidoPaterno $usuario->apellidoMaterno $usuario->nombre'>Reestablecer</button>
+                        </td>";
                         echo "<tr>
                         <td>$usuario->apellidoPaterno $usuario->apellidoMaterno $usuario->nombre</td>
                         <td>" . $usuario->correo . "</td>
                         <td>$usuario->rol</td>
                         <td>$usuario->telefono</td>
                         <td>$usuario->estatus</td>
-                        <td>
-                        <a href='editar_arrendador.php?id=$usuario->id' class='btn btn-success'>Editar</a>
-                        </td>
-                        <td>
-                        <button type='button' class='btn btn-danger' data-bs-toggle='modal' data-bs-target='#mdlEliminar' value='$usuario->id' nombre='$usuario->apellidoPaterno $usuario->apellidoMaterno $usuario->nombre'>Eliminar</button>
+                        " . $celda . "
+                        <td><button type='button' class='btn btn-danger' data-bs-toggle='modal' data-bs-target='#mdlEliminar' value='$usuario->id' nombre='$usuario->apellidoPaterno $usuario->apellidoMaterno $usuario->nombre'>Eliminar</button>
                         </td>
                     </tr>";
                     }
@@ -99,11 +99,41 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    Está a punto de eliminar al usuario <b id="UsuarioEliminar">Luis Perez</b>, ¿Desea continuar?
+                    Está a punto de eliminar al usuario <b id="UsuarioEliminar"></b>, ¿Desea continuar?
                 </div>
                 <div class="modal-footer">
                     <form action="lista_arrendadores.php" method="post">
                         <button type="submit" class="btn btn-danger" id="btnEliminar" name="id">Eliminar</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" tabindex="-1" id="mdlVerificar" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-warning text-white">
+                    <h5 class="modal-title">Confirmación de verificación</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Está a punto de cambiar la verificación del usuario: <b id="verificarUsuario"></b>, ¿Desea continuar?
+                </div>
+                <div class="modal-footer">
+                    <form action="cambiar_verificacion.php" method="post">
+                        <?php
+                        if ($usuario->estatus == "Verificado") {
+                        ?>
+                            <button type="submit" class="btn btn-warning" id="btnVerificar" name="id">Reestablecer verificación</button>
+                        <?php
+                        } else {
+                        ?>
+                            <button type="submit" class="btn btn-success" id="btnVerificar" name="id">Verificar</button>
+                        <?php
+                        }
+                        ?>
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                     </form>
                 </div>

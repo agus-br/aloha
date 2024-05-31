@@ -31,7 +31,9 @@
                 // Obtener todos los inmuebles
                 $daoInmueble = new DAOInmueble();
                 $inmuebles = $daoInmueble->obtenerInmueblesArrendador($_SESSION["id"]);
-
+                if (isset($_SESSION["nombreTemp"])) {
+                    unset($_SESSION["nombreTemp"]);
+                }
                 // Iterar sobre cada inmueble para generar el HTML
                 foreach ($inmuebles as $inmueble) {
                 ?>

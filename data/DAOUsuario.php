@@ -51,6 +51,31 @@ class DAOUsuario
         }
 	}
 
+	public function existeCorreo($correo){
+		try {
+			$this->conectar();
+
+			$sentenciaSQL = $this->conexion->prepare("SELECT id FROM usuarios WHERE correo=?");
+			//CAST(password as varchar(28))=CAST(sha224(?) as varchar(28))");
+			//Se ejecuta la sentencia sql con los parametros dentro del arreglo 
+			$sentenciaSQL->execute([$correo]);
+
+			/*Obtiene los datos*/
+			$fila = $sentenciaSQL->fetch(PDO::FETCH_OBJ);
+			// Si hay una fila, significa que el correo existe
+			if ($fila !== false) {
+				return 1;
+			} else {
+				return 0;
+			}
+		} catch (Exception $e) {
+			//var_dump($e);
+			return 0;
+		} finally {
+			Conexion::desconectar();
+		}
+	}
+
 	public function getUser($id){
 		try {
 			$this->conectar();
@@ -58,7 +83,7 @@ class DAOUsuario
 			//Almacenará el registro obtenido de la BD
 			$obj = null;
 
-			$sentenciaSQL = $this->conexion->prepare("SELECT id, nombre, apellidopaterno, apellidomaterno, rol, correo, telefono
+			$sentenciaSQL = $this->conexion->prepare("SELECT id, nombre, apellidopaterno, apellidomaterno, rol, correo, telefono, estatus
             FROM usuarios WHERE id=?");
 			//CAST(password as varchar(28))=CAST(sha224(?) as varchar(28))");
 			//Se ejecuta la sentencia sql con los parametros dentro del arreglo 
@@ -75,6 +100,7 @@ class DAOUsuario
 				$obj->rol = $fila->rol;
 				$obj->correo = $fila->correo;
 				$obj->telefono = $fila->telefono;
+				$obj->estatus = $fila->estatus;
 			}
 			return $obj;
 		} catch (Exception $e) {
@@ -114,6 +140,39 @@ class DAOUsuario
 				$obj->telefono = $fila->telefono;
 				$obj->estatus = $fila->estatus;
 				//Agrega el objeto al arreglo, no necesitamos indicar un índice, usa el próximo válido
+				$lista[] = $obj;
+			}
+
+			return $lista;
+		} catch (PDOException $e) {
+			var_dump($e);
+			return null;
+		} finally {
+			Conexion::desconectar();
+		}
+	}
+
+	public function obtenerUsuarios()
+	{
+		try {
+			$this->conectar();
+
+			$lista = array();
+			/*Se arma la sentencia sql para seleccionar todos los registros de la base de datos*/
+			$sentenciaSQL = $this->conexion->prepare("SELECT correo FROM usuarios");
+
+			//Se ejecuta la sentencia sql, retorna un cursor con todos los elementos
+			$sentenciaSQL->execute();
+
+			//$resultado = $consulta->fetchAll(PDO::FETCH_ASSOC);
+			$resultado = $sentenciaSQL->fetchAll(PDO::FETCH_OBJ);
+			/*Podemos obtener un cursor (resultado con todos los renglones como 
+				un arreglo de arreglos asociativos o un arreglo de objetos*/
+			/*Se recorre el cursor para obtener los datos*/
+
+			foreach ($resultado as $fila) {
+				$obj = new usuario();
+				$obj->correo = $fila->correo;
 				$lista[] = $obj;
 			}
 
@@ -176,13 +235,95 @@ class DAOUsuario
 		}
 	}
 
+	public function editarPerfil(Usuario $obj)
+	{
+		try {
+			$sql = "UPDATE usuarios
+                    SET
+                    nombre = ?,
+                    apellidoPaterno = ?,
+                    apellidoMaterno = ?
+                    WHERE id = ?;";
+
+			$this->conectar();
+
+			$sentenciaSQL = $this->conexion->prepare($sql);
+			$sentenciaSQL->execute(
+				array(
+					$obj->nombre,
+					$obj->apellidoPaterno,
+					$obj->apellidoMaterno,
+					$obj->id
+				)
+			);
+			return true;
+		} catch (PDOException $e) {
+			var_dump($e);
+			return false;
+		} finally {
+			Conexion::desconectar();
+		}
+	}
+
+	public function editarPassword(Usuario $obj)
+	{
+		try {
+			$sql = "UPDATE usuarios
+                    SET
+                    password = sha224(?)
+                    WHERE id = ?;";
+
+			$this->conectar();
+
+			$sentenciaSQL = $this->conexion->prepare($sql);
+			$sentenciaSQL->execute(
+				array(
+					$obj->password,
+					$obj->id
+				)
+			);
+			return true;
+		} catch (PDOException $e) {
+			var_dump($e);
+			return false;
+		} finally {
+			Conexion::desconectar();
+		}
+	}
+
+	public function editarVerificacion(Usuario $obj)
+	{
+		try {
+			$sql = "UPDATE usuarios
+                    SET
+                    estatus = ?
+                    WHERE id = ?;";
+
+			$this->conectar();
+
+			$sentenciaSQL = $this->conexion->prepare($sql);
+			$sentenciaSQL->execute(
+				array(
+					$obj->estatus,
+					$obj->id
+				)
+			);
+			return true;
+		} catch (PDOException $e) {
+			var_dump($e);
+			return false;
+		} finally {
+			Conexion::desconectar();
+		}
+	}
+
 	public function editarRol(Usuario $obj){
 		try {
 			$sql = "UPDATE usuarios
                     SET
 					telefono = ?,
                     rol = ?
-                    WHERE correo = ?;";
+                    WHERE id = ?;";
 
 			$this->conectar();
 
@@ -191,7 +332,7 @@ class DAOUsuario
 				array(
 					$obj->telefono,
 					$obj->rol,
-					$obj->correo
+					$obj->id
 				)
 			);
 			return true;
@@ -208,15 +349,14 @@ class DAOUsuario
 		try {
 			$sql = "INSERT INTO Usuarios
                 (nombre,
-                apellidoPaterno,
-                apellidoMaterno,
-                rol,
+                apellidopaterno,
+                apellidomaterno,
                 correo,
                 password)
                 VALUES
                 (:nombre,
-                :apellidoPaterno,
-                :apellidoMaterno,
+                :apellidopaterno,
+                :apellidomaterno,
                 :correo,
                 sha224(:password));";
                 //sha224(:contrasenia));";
@@ -225,8 +365,8 @@ class DAOUsuario
 			$this->conexion->prepare($sql)
 				->execute(array(
 					':nombre' => $obj->nombre,
-					':apellidoPaterno' => $obj->apellidoPaterno,
-					':apellidoMaterno' => $obj->apellidoMaterno,
+					':apellidopaterno' => $obj->apellidoPaterno,
+					':apellidomaterno' => $obj->apellidoMaterno,
 					':correo' => $obj->correo,
 					':password' => $obj->password
 				));

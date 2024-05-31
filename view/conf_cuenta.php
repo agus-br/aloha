@@ -19,9 +19,54 @@
     <div class="container">
         <?php
         require("leftNavBar.php");
+        require_once("../data/DAOUsuario.php");
+
+        $showBackError = $errorMessage = "";
+
+        $dao = new DAOUsuario();
+        $usuario = $dao->getUser($_SESSION["id"]);
+        $_SESSION["nombre"] = $usuario->nombre;
+        $_SESSION["correo"] = $usuario->correo;
+        $_SESSION["rol"] = $usuario->rol;
+
+        if (isset($_SESSION["msgSuccesful"])) {
+            session_unset("msgSuccesful");
+        }
+
+        if (
+            isset($_POST["txtPassword"]) && isset($_POST["txtPasswordConfirm"])
+        ) {
+            if (
+                strlen($_POST["txtPassword"]) > 0 && strlen($_POST["txtPassword"]) <= 50 &&
+                strlen($_POST["txtPasswordConfirm"]) > 0 && strlen($_POST["txtPasswordConfirm"]) <= 50
+            ) {
+                if (
+                    $_POST["txtPassword"] == $_POST["txtPasswordConfirm"]
+                ) {
+                    $usuario->password = $_POST["txtPasswordConfirm"];
+                    $res = $dao->editarPassword($usuario);
+                    if ($res) {
+                        $showBackError = "showSuccess";
+                        $errorMessage = "Configuración guardada con éxito.";
+                    } else {
+                        $showBackError = "show";
+                        $errorMessage = "Error al guardar los datos.";
+                    }
+                } else {
+                    $showBackError = "show";
+                    $errorMessage = "Las contraseñas no coinciden.";
+                }
+            } else {
+                $showBackError = "show";
+                $errorMessage = "Error al procesar los datos.";
+            }
+        }
         ?>
 
-        <form class="derecha">
+        <form class="derecha" method="post" action="conf_cuenta.php">
+            <div class="msg-warning <?= $showBackError ?>">
+                <?= $errorMessage ?>
+            </div>
             <div class="titulos">
                 <span>Configuración de cuenta</span>
             </div>
@@ -29,15 +74,24 @@
                 <div class="med">
                     <div class="campo-texto">
                         <span class="subtitulos">Correo electrónico </span>
-                        <input type="email" disabled>
+                        <input type="email" disabled readonly id="txtNombre" name="txtNombre" value="<?= $usuario->correo ?>">
+                        <div class="msg-error" id="error-correo">
+                            Este es un mensaje de error
+                        </div>
                     </div>
                     <div class="campo-texto">
                         <span class="subtitulos">Contraseña</span>
-                        <input type="password">
+                        <input type="password" id="txtPassword" name="txtPassword">
+                        <div class="msg-error" id="error-password">
+                            Este es un mensaje de error
+                        </div>
                     </div>
                     <div class="campo-texto">
-                        <span class="subtitulos">Contraseña</span>
-                        <input type="password">
+                        <span class="subtitulos">Confirmar contraseña</span>
+                        <input type="password" id="txtPasswordConfirm" name="txtPasswordConfirm">
+                        <div class="msg-error" id="error-password-confirmation">
+                            Este es un mensaje de error
+                        </div>
                     </div>
                 </div>
                 <div class="med">

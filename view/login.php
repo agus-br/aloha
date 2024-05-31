@@ -20,13 +20,13 @@
     if (isset($_POST["txtCorreo"]) && isset($_POST["txtPassword"])) {
         $correo = trim($_POST["txtCorreo"]);
         $password = trim($_POST["txtPassword"]);
+        $dao = new DAOUsuario();
 
         //Validar los datos
         if (
             filter_var($correo, FILTER_VALIDATE_EMAIL) != false &&
-            strlen($password) > 0 && strlen($password) <= 50
+            strlen($password) > 0 && strlen($password) <= 40
         ) {
-            $dao = new DAOUsuario();
             $usuario = $dao->login($correo, $password);
             //Verificar que el usuario sea admin@gmail.com y pass 12345678  
             if ($usuario) {
@@ -44,44 +44,42 @@
         } else {
             //$validado = "validado";
             $showBackError = "show";
-            $errorMessage = "Correo o contraseña incorrecta";
+            $errorMessage = "Formatos no válidos";
         }
     }
-    /*else{
-            echo "viene de otra página sin datos";
-        }*/
     ?>
     <div class="container">
-        <form method="post" novalidate>
-            <div class="form-navbar">
-                <a id="login"><button type="button" class="btn-active">Iniciar sesión</button></a>
-                <a href="signup.php" id="signup"><button type="button" class="def-btn">Registrarse</button></a>
+        <div class="sub-container">
+            <div class="msg-warning <?= $showBackError ?>">
+                <?= $errorMessage ?>
             </div>
-            <div class="controles">
-                <div class="campo-texto">
-                    <label for="txtCorreo" class=" subtitulos">Correo</label>
-                    <input type="email" id="txtCorreo" name="txtCorreo" required maxlength="25">
-                    <div class="msg-error" id="error-correo">
-                        Este es un mensaje de error
+            <form method="post" novalidate>
+                <div class="form-navbar">
+                    <a id="login"><button type="button" class="btn-active">Iniciar sesión</button></a>
+                    <a href="signup.php" id="signup"><button type="button" class="def-btn">Registrarse</button></a>
+                </div>
+                <div class="controles">
+                    <div class="campo-texto">
+                        <label for="txtCorreo" class=" subtitulos">Correo</label>
+                        <input type="email" id="txtCorreo" name="txtCorreo" required maxlength="100">
+                        <div class="msg-error" id="error-correo">
+                            Este es un mensaje de error
+                        </div>
+                    </div>
+                    <div class="campo-texto">
+                        <label for="txtPassword" class="subtitulos">Contraseña</label>
+                        <input type="password" id="txtPassword" name="txtPassword" required maxlength="40">
+                        <div class="msg-error" id="error-password">
+                            Este es un mensaje de error
+                        </div>
                     </div>
                 </div>
-                <div class="campo-texto">
-                    <label for="txtPassword" class="subtitulos">Contraseña</label>
-                    <input type="password" id="txtPassword" name="txtPassword" required maxlength="40">
-                    <div class="msg-error" id="error-password">
-                        Este es un mensaje de error
-                    </div>
-                </div>
-            </div>
 
-            <div class="btn-container">
-                <div class="msg-warning <? $showBackError ?>">
-                    <? $errorMessage ?>
+                <div class="btn-container">
+                    <button type="submit" class="action-btn-default" id="btn-login">Iniciar sesión</button>
                 </div>
-                <button type="submit" class="action-btn-default" id="btn-login">Iniciar sesión</button>
-            </div>
-        </form>
-
+            </form>
+        </div>
     </div>
     <script src="validation/login.js"></script>
 </body>

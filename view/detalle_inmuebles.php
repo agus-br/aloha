@@ -18,12 +18,17 @@
     require_once("../data/DAOInmueble.php");
     require_once("../data/DAOUsuario.php");
 
-    $inmueble = new Inmueble();
+
     if (isset($_GET["id"]) && is_numeric($_GET["id"])) {
-        //var_dump($_GET["id"]);
-        //Cuando se recibe el id entonces hay que obtener los datos del inmueble
+        
+        //$inmueble = new Inmueble();
         $inmueble = (new DAOInmueble())->getInmueble((int) $_GET["id"]);
-        $arrendador = (new DAOUsuario())->getUser((int) $inmueble->arrendador);
+        if($inmueble != null){
+            //var_dump($inmueble);
+            $arrendador = (new DAOUsuario())->getUser((int) $inmueble->arrendador);
+        }else{
+            header("Location: home.php");
+        }
     }
 
     ?>

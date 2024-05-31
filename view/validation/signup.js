@@ -155,7 +155,6 @@ document.addEventListener("DOMContentLoaded", () => {
             e.preventDefault();
             return
         }    
-        e.preventDefault();       
     });
 
 });

@@ -52,9 +52,16 @@
     gap: 4vw;
 }
 
+.sub-container{
+    display: flex;
+    flex-direction: column;
+    min-width: max-content;
+    gap: 3vh;
+}
+
 form {
-    min-width: 400px;
-    width: 40%;
+    min-width: 500px;
+    width: 100%;
     height: max-content;
     border-radius: 6px;
     border: 1px solid #289976;

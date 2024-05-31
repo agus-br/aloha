@@ -15,6 +15,9 @@
 <body>
     <?php
     require("menu_privado.php");
+    if ($_SESSION["rol"] == "Administrador") {
+        header("Location: lista_arrendadores.php");
+    }
     ?>
 
     <div class="container">

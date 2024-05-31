@@ -3,19 +3,19 @@ require_once 'conexion.php';
 require_once '../model/inmueble.php';
 
 class DAOInmueble
-{    
-	private $conexion; 
-    private function conectar(){
-        try{
-			$this->conexion = Conexion::conectar(); 
-		}
-		catch(Exception $e)
-		{
-			die($e->getMessage()); 
-		}
-	}
+{
+    private $conexion;
+    private function conectar()
+    {
+        try {
+            $this->conexion = Conexion::conectar();
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
 
-    public function getInmueble($id){
+    public function getInmueble($id)
+    {
         try {
             $this->conectar();
 
@@ -56,7 +56,8 @@ class DAOInmueble
         }
     }
 
-    public function getInmuebleArrendador($id_arrendador, $id){
+    public function getInmuebleArrendador($id_arrendador, $id)
+    {
         try {
             $this->conectar();
 
@@ -97,7 +98,8 @@ class DAOInmueble
         }
     }
 
-    public function obtenerInmuebles(){
+    public function obtenerInmuebles()
+    {
         try {
             $this->conectar();
 
@@ -146,13 +148,14 @@ class DAOInmueble
         }
     }
 
-    public function obtenerInmueblesArrendador($id){
+    public function obtenerInmueblesArrendador($id)
+    {
         try {
             $this->conectar();
 
             $lista = array();
             /* Se arma la sentencia SQL para seleccionar todos los registros de la base de datos */
-            $sentenciaSQL = $this->conexion->prepare("SELECT * FROM inmuebles where estatus = 'Disponible' and arrendador = ?");
+            $sentenciaSQL = $this->conexion->prepare("SELECT * FROM inmuebles where arrendador = ?");
             // Se ejecuta la sentencia SQL, retorna un cursor con todos los elementos
             $sentenciaSQL->execute([$id]);
 
@@ -194,21 +197,48 @@ class DAOInmueble
         }
     }
 
-	public function eliminar($id){
-		try {
-			$this->conectar();
+    public function eliminar($id)
+    {
+        try {
+            $this->conectar();
 
-			$sentenciaSQL = $this->conexion->prepare("DELETE FROM inmuebles WHERE id = ?");
-			$resultado = $sentenciaSQL->execute(array($id));
-			return $resultado;
-		} catch (PDOException $e) {
-			//Si quieres acceder expecíficamente al numero de error
-			//se puede consultar la propiedad errorInfo
-			return 0;
-		} finally {
-			Conexion::desconectar();
-		}
-	}
+            $sentenciaSQL = $this->conexion->prepare("DELETE FROM inmuebles WHERE id = ?");
+            $resultado = $sentenciaSQL->execute(array($id));
+            return $resultado;
+        } catch (PDOException $e) {
+            //Si quieres acceder expecíficamente al numero de error
+            //se puede consultar la propiedad errorInfo
+            return 0;
+        } finally {
+            Conexion::desconectar();
+        }
+    }
+
+    public function existeInmueble($id)
+    {
+        try {
+            $this->conectar();
+
+            $sentenciaSQL = $this->conexion->prepare("SELECT id FROM inmuebles WHERE id=?");
+            //CAST(password as varchar(28))=CAST(sha224(?) as varchar(28))");
+            //Se ejecuta la sentencia sql con los parametros dentro del arreglo 
+            $sentenciaSQL->execute([$id]);
+
+            /*Obtiene los datos*/
+            $fila = $sentenciaSQL->fetch(PDO::FETCH_OBJ);
+            // Si hay una fila, significa que el correo existe
+            if ($fila !== false) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception $e) {
+            var_dump($e);
+            return false;
+        } finally {
+            Conexion::desconectar();
+        }
+    }
 
     public function editar(Inmueble $obj)
     {
@@ -247,17 +277,20 @@ class DAOInmueble
                     $obj->direccion,
                     $obj->latitud,
                     $obj->longitud,
-                    $obj->internet,
-                    $obj->agua,
-                    $obj->luz,
-                    $obj->garage,
+                    $obj->internet ? 1 : 0,
+                    $obj->agua ? 1 : 0,
+                    $obj->luz ? 1 : 0,
+                    $obj->garage ? 1 : 0,
                     $obj->estatus,
                     $obj->id
                 )
             );
             return true;
         } catch (PDOException $e) {
+            echo "<pre>";
+            var_dump($obj);
             var_dump($e);
+            echo "</pre>";
             return false;
         } finally {
             Conexion::desconectar();
@@ -265,7 +298,8 @@ class DAOInmueble
     }
 
 
-    public function agregar(Inmueble $obj){
+    public function agregar(Inmueble $obj)
+    {
         $clave = 0;
         try {
             $sql = "INSERT INTO inmuebles
@@ -317,10 +351,10 @@ class DAOInmueble
                     ':direccion' => $obj->direccion,
                     ':latitud' => $obj->latitud,
                     ':longitud' => $obj->longitud,
-                    ':internet' => $obj->internet,
-                    ':agua' => $obj->agua,
-                    ':luz' => $obj->luz,
-                    ':garage' => $obj->garage,
+                    ':internet' => $obj->internet ? 1 : 0,
+                    ':agua' => $obj->agua ? 1 : 0,
+                    ':luz' => $obj->luz ? 1 : 0,
+                    ':garage' => $obj->garage ? 1 : 0,
                     ':estatus' => $obj->estatus
                 ));
 
@@ -336,5 +370,4 @@ class DAOInmueble
             Conexion::desconectar();
         }
     }
-}    
-?>    
+}
